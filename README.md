@@ -4,4 +4,4 @@
 Garza et al.(2018)
 
 
-All the Figures can be reproduced by following the tutorial available [here](https://drive.google.com/file/d/1_QJyB0u33_nlwxytnZPeCkHvK_kIjMXc/view?usp=sharing).
+For a better understanding of the methods used in this paper, follow through the text and code available [here](https://drive.google.com/file/d/1_QJyB0u33_nlwxytnZPeCkHvK_kIjMXc/view?usp=sharing).
