@@ -144,6 +144,7 @@ cpd11574	Molybdate	0.3175214095
 cpd22448	Beta-D-Glucans	1
 cpd00359	indol	1
 cpd00119	L-Histidine	0.2652830764
+cpd00121	Myoinositol	1.000
 cpd00118	Putrescine	0.4309756866
 cpd01741	Dodecanoic acid	0.3422769389
 cpd00116	Methanol	10
@@ -163,3 +164,4 @@ cpd00210	Taurine	1.000
 cpd00159	Lactate	1.000
 cpd00036	Succinic acid	1.000
 cpd00060	Methionine	1.000
+cpd00121	Myoinositol	1.000
