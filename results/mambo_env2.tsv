@@ -17,7 +17,7 @@ cpd00047	Formic acid	0.037033
 cpd00046	Cytidine monophosphate	0.013778
 cpd10516	Fe3+	0.048207
 cpd11588	Glycylproline	0.0288062
-cpd09878	Sulfoacetic acid,<br>Sulfoacetate	0.028487
+cpd09878	Sulfoacetic acid	0.028487
 cpd03422	Cobinamide	0.045515
 cpd01133	Stachyose	0.0293402
 cpd11582	Alanyl-Threonine	0.0043756
@@ -53,9 +53,9 @@ cpd00221	D-Lactic acid	0.023272
 cpd00220	Riboflavin	0.039426
 cpd00033	Glycine	0.004905
 cpd03048	2-Hydroxyethanesulfonate	0.041319
-cpd00637	D-2-Amino-4-(methylthio)butyric acid,<br>D-Methionine	0.03729
+cpd00637	D-Methionine	0.03729
 cpd00635	Cob(I)alamin	0.042387
-cpd03725	Iron(III)dicitrate,<br>Fe(III)dicitrate	0.033331
+cpd03725	Iron(III)dicitrate	0.033331
 cpd03724	Ferrichrome	0.033296
 cpd00309	Xanthine	0.0249261
 cpd11595	chromate	0.059053
@@ -67,7 +67,7 @@ cpd11590	Methionyl-Alanine	0.042432
 cpd11593	Alanyl-Aspartate	0.003538
 cpd11592	Glycyl-Glutamate	0.041322
 cpd08306	Butyro-betaine	0.033499
-cpd08305	crotonobetaine,<br>Crotono-betaine	0.039716
+cpd08305	crotonobetaine	0.039716
 cpd03424	Cobalamin	0.045236
 cpd00550	D-Serine	0.033234
 cpd00030	Manganese	0.042602
@@ -75,7 +75,7 @@ cpd00412	Deoxyuridine	0.036172
 cpd00138	D-Mannose	0.050407
 cpd00599	Salicylic acid	0.03018
 cpd02027	S-Methylmethionine	0.033095
-cpd08023	methanesulfonate,<br>Methanesulfonic acid	0.028798
+cpd08023	methanesulfonate	0.028798
 cpd03198	Melibiose	0.020169
 cpd00222	Gluconic acid	0.0347043
 cpd00395	Cysteic acid	0.034576
@@ -88,7 +88,7 @@ cpd00024	Oxoglutaric acid	0.027119
 cpd00023	L-Glutamic acid	0.025729
 cpd00028	Heme	0.051135
 cpd11606	Menaquinone 7	0.032056
-cpd02227	S-(5-Deoxy-D-ribos-5-yl)-L-homocysteine,<br>S-Ribosylhomocysteine,<br>Ribose-5-S-homocysteine,<br>S-D-Ribosyl-L-homocysteine,<br>S-Ribosyl-L-homocysteine	0.022216
+cpd02227	S-(5-Deoxy-D-ribos-5-yl)-L-homocysteine	0.022216
 cpd00142	Acetoacetic acid	0.028502
 cpd00314	Mannitol	0.015958
 cpd00149	Cobalt	0.033146
@@ -100,14 +100,14 @@ cpd00048	Sulfate	0.024018
 cpd00006	NADP	0.042185
 cpd11594	Dextrin	0.031461
 cpd15237	Palmitoleic acid	0.035756
-cpd03343	3-Phenylpropanoic acid,<br>3-Phenyl-propionic acid,<br>Phenylpropanoate	0.020613
+cpd03343	3-Phenylpropanoic acid	0.020613
 cpd00794	Trehalose	0.0067435
 cpd00797	3-Hydroxybutyric acid	0.030759
 cpd00011	Carbon dioxide	0.022452
 cpd00017	S-Adenosylmethionine	0.034886
 cpd00793	Thiamine monophosphate	0.042845
 cpd00654	Deoxycytidine	0.105757
-cpd11579	ethanesulfonate,<br>ethane sulfonate	0.029003
+cpd11579	ethanesulfonate	0.029003
 cpd00018	Adenosine monophosphate	0.02158
 cpd00655	Dephospho-CoA	0.04594
 cpd00652	Galactaric acid	0.009071
@@ -116,7 +116,7 @@ cpd00098	Choline	0.044827
 cpd00099	Chloride ion	0.039582
 cpd00492	N-Acetylmannosamine	0.031384
 cpd00156	L-Valine	0.013784
-cpd11575	MOPS,<br>3-(n-Morpholino)Propanesulfonic Acid	0.029688
+cpd11575	MOPS	0.029688
 cpd00154	D-Xylose	0.016066
 cpd01262	Maltotriose	0.032686
 cpd00241	dGTP	0.019417
@@ -164,13 +164,13 @@ cpd00266	L-Carnitine	0.020867
 cpd00079	Glucose 6-phosphate	0.0237128
 cpd01188	Lanosterin	0.032153
 cpd16062	Citrate-Mg	0.0451434
-cpd00516	meso-2-6-Diaminoheptanedioate,<br>meso-Diaminoheptanedioate,<br>meso-2,6-Diaminopimelic acid,<br>meso-2,6-Diaminopimelate,<br>meso-2,6-Diaminoheptanedioate	0.032624
+cpd00516	meso-2-6-Diaminoheptanedioate	0.032624
 cpd00298	5-Thymidylic acid	0.036931
 cpd00268	Thiosulfate	0.051284
 cpd00393	Folic acid	0.041808
 cpd03091	'5''-Deoxyadenosine'	0.023138
 cpd00108	D-Galactose	0.001916
-cpd11640	Hydrogen,<br>H2	0.006944
+cpd11640	Hydrogen	0.006944
 cpd00104	Biotin	0.026874
 cpd00105	D-Ribose	0.00596
 cpd00106	Fumaric acid	0.00233
@@ -195,7 +195,7 @@ cpd11574	Molybdate	0.041263
 cpd00092	Uracil	0.035554
 cpd00367	Cytidine	0.063345
 cpd00811	Trimethylamine N-oxide	0.038352
-cpd00159	LCTT,<br>L-Lactic acid,<br>L-Lactate,<br>(S)-Lactate	0.019304
+cpd00159	L-Lactate	0.019304
 cpd00281	Gamma-Aminobutyric acid	0.03376
 cpd00280	Galacturonic acid	0.078815
 cpd00091	'Uridine 5''-monophosphate'	0.028422
