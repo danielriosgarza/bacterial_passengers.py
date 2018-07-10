@@ -691,7 +691,7 @@ def null_d(model, media_dict, n_mets, n_points):
 ###Snippet 14###
 #####################################
 
-#Obtaining bn from github
+#Obtain bn
 response = urllib2.urlopen('https://github.com/danielriosgarza/bacterial_passengers.py/raw/master/results/bn_scores_MAMBO.tsv')
 
 Bn_f = response.read()
@@ -788,7 +788,7 @@ plt.scatter(x, data_boxplot[-1], c= color_dict['others'],alpha=0.7)
 
 plt.xticks(rotation=90)
 
-plt.ylabel('s-score')
+plt.ylabel('b-score')
 
 plt.legend()
 
@@ -820,7 +820,7 @@ L = (Npos-1)*np.sqrt((Nall-Npos)/Npos)
 W=[0]
 
 for i in xrange(1,len(strains)):
-  if sorted_genera_b in enriched_genera:
+  if sorted_genera_b[i] in enriched_genera:
     W.append(W[-1]+ np.sqrt((Nall-Npos)/Npos))
   else:
     W.append(W[-1]-np.sqrt(Npos/(Nall-Npos)))
@@ -841,6 +841,306 @@ z_score_rpos = (max(W)-np.mean(D_null_rpos))/np.std(D_null_rpos)
 
 pv = sts.norm.sf(abs(z_score))
 pv_rpos = sts.norm.sf(abs(z_score_rpos))
+
+#####################################
+###End###
+
+
+
+###Snippet 17###
+#####################################
+
+print 'L = %.7f' %L
+
+print 'max(W) = %.7f' %max(W)
+
+print 'mean(Dnull) = %.7f' %np.mean(D_null)
+
+print 'mean(Dnull_rpos) = %.7f' %np.mean(D_null_rpos)
+
+print 'empirical_pvalue = %.7f' %emp_pv
+
+print 'empirical_pvalue_rpos = %.7f' %emp_pv_rpos
+
+print 'estimated pvalue = %.7f' %pv
+
+print 'estimated pvalue_rpos = %.7f' %pv_rpos
+           
+
+#plot the accumulated weight curve and the compariso of Dnull and max(W)  
+
+f, axarr = plt.subplots(2,2)
+axarr[0,1].hist(D_null, 50, density=1, alpha=0.5, color='r')
+axarr[0,1].hist(D_null, 50, density=1, histtype='step', lw=1.5, color='r')
+axarr[0,1].set_xticks([np.mean(D_null)])
+axarr[0,1].set_xticklabels(['%.2f'%np.mean(D_null)])
+axarr[0,1].vlines(max(W),0,15., lw=2,color='g')
+
+axarr[1,1].hist(D_null_rpos, 50, density=1, alpha=0.5, color='orange')
+axarr[1,1].hist(D_null_rpos, 50, density=1, histtype='step', lw=1.5, color='orange')
+axarr[1,1].set_xticks([np.mean(D_null_rpos), max(W)])
+axarr[1,1].set_xticklabels(['%.2f'%np.mean(D_null_rpos), '%.2f\nmax(W)'%max(W)])
+axarr[1,1].vlines(max(W),0,20., lw=2,color='g')
+
+
+  
+plt.subplot(121).plot(W, color=color_dict['others'], lw=1)
+for i in xrange(len(genera[sorter])):
+    if genera[sorter][i] in enriched_genera:
+        plt.subplot(121).scatter(i, W[i], c=color_dict[genera[sorter][i]])
+    
+        
+plt.ylabel('cumulative weight distribution (W)')
+
+#plt.savefig('Figure2.png',bbox_inches='tight',dpi=600)
+
+#files.download('Figure2.png')
+
+#####################################
+###End###
+
+
+
+###Snippet 18###
+#####################################
+
+#Obtain a joint score by computing the conflation of S_n and B_n
+
+
+Z_n={}
+
+for name in S_n:
+  Z_n[name] = (S_n[name]*B_n[name])/((S_n[name]*B_n[name])+((1.-S_n[name])*(1.-B_n[name])))  
+
+print 'Z_n', Z_n
+
+#####################################
+###End###
+
+
+
+###Snippet 19###
+#####################################
+
+#rank the list of enriched genera by the average Z_n
+
+genera_len_z={}
+others_z=[]
+
+for i in xrange(len(genera)):
+  if genera[i] in enriched_genera:
+    if genera[i] not in genera_len_z:
+      genera_len_z[genera[i]]=[Z_n[strains[i]]]
+    else:
+      genera_len_z[genera[i]].append(Z_n[strains[i]])
+  else:
+    others_z.append(Z_n[strains[i]])
+    
+#get the mean s for enriched genera and others
+mea_z={}
+
+for i in genera_len_z:
+  mea_z[i]=np.mean(genera_len_z[i])
+
+others_mean_z = np.mean(others_z)  
+
+
+#rank order (largest to smallest) based on the Bn vector
+Z_n_vec = np.array([Z_n[i] for i in strains])
+
+#Randomize possibly equal numbers 
+Z_n_diffs = np.array([i-j for i in Z_n_vec for j in Z_n_vec])
+min_pos_diff = min(Z_n_diffs[Z_n_diffs>0])
+
+np.random.seed(666)
+
+sorter_z = np.argsort(Z_n_vec+np.random.uniform(0, min_pos_diff*0.9, len(Z_n_vec)))
+sorter_z=sorter_z[::-1]
+rZn=Z_n_vec[sorter_z]
+
+#make the plots  
+
+#colorplot
+sorted_genera_z = genera[sorter_z]
+sorted_strains_z = strains[sorter_z]
+
+fig = plt.figure(0)
+ax=fig.add_subplot(515)
+
+for i in xrange(len(genera)):
+  if sorted_genera_z[i] not in enriched_genera:
+    ax.vlines(i, 0, 1, color=color_dict['others'],lw=.5)
+
+for i in xrange(len(genera)):
+  if sorted_genera_z[i] in enriched_genera:
+    ax.vlines(i, 0, 1, color=color_dict[sorted_genera_z[i]],lw=1, label=genera[sorter_z][i])
+
+plt.xlim(0,1561)
+
+#boxplot
+
+ax=fig.add_subplot(211)
+
+#data for boxplots
+data_boxplot=[genera_len_z[i] for i in ek[sor]]
+data_boxplot.append(others_z)
+data_boxplot=np.array(data_boxplot)
+
+#boxplot
+medianprops = dict(linewidth=2.5, color='k')
+#bplot = plt.boxplot(data_boxplot,notch=False, patch_artist=False, bootstrap=100000, labels=labels,medianprops=medianprops)
+
+#scatter plot
+for i in xrange(len(data_boxplot)-1):
+  x = [i+1+np.random.uniform(-0.3, 0.3) for z in xrange(len(data_boxplot[i]))]
+  plt.scatter(x, data_boxplot[i], c= color_dict[labels[i]],alpha=0.7)
+
+  
+x = [len(data_boxplot)+np.random.uniform(-0.3, 0.3) for z in xrange(len(data_boxplot[-1]))]
+
+plt.scatter(x, data_boxplot[-1], c= color_dict['others'],alpha=0.7)
+
+plt.xticks(rotation=90)
+
+plt.ylabel('z-score')
+
+plt.legend()
+
+
+lgd = ax.legend(ncol=3 ,bbox_to_anchor=(1, 0.9),  prop={'size': 12})
+
+
+#to dowload the figure uncomemment below:
+#plt.savefig('Figure1.png',bbox_inches='tight', dpi=600)
+
+#files.download('Figure1.png')
+
+#####################################
+###End###
+
+
+
+###Snippet 20###
+#####################################
+
+#Obtain Nall, Npos, and L
+
+Nall=float(len(rZn))
+
+Npos = float(len([rZn[i] for i in xrange(len(rZn)) if genera[sorter_z][i] in enriched_genera]))
+
+L = (Npos-1)*np.sqrt((Nall-Npos)/Npos)
+
+#Build the weight curve
+W=[0]
+
+for i in xrange(1,len(strains)):
+  if sorted_genera_z[i] in enriched_genera:
+    W.append(W[-1]+ np.sqrt((Nall-Npos)/Npos))
+  else:
+    W.append(W[-1]-np.sqrt(Npos/(Nall-Npos)))
+
+#constrain to the maximum of 1              
+W = np.array(W)/L             
+
+
+D_null = generate_D_null(10000, enriched_genera, genera)
+D_null_rpos = generate_D_null_rpos(10000, 13,list(sorted_genera_z))
+
+
+emp_pv = (1.+len([i for i in D_null if i>=max(W)]))/(len(D_null))
+emp_pv_rpos = (1.+len([i for i in D_null_rpos if i>=max(W)]))/(len(D_null_rpos))
+
+z_score = (max(W)-np.mean(D_null))/np.std(D_null)
+z_score_rpos = (max(W)-np.mean(D_null_rpos))/np.std(D_null_rpos)
+
+pv = sts.norm.sf(abs(z_score))
+pv_rpos = sts.norm.sf(abs(z_score_rpos))
+
+#####################################
+###End###
+
+
+###Snippet 21###
+#####################################
+
+print 'L = %.7f' %L
+
+print 'max(W) = %.7f' %max(W)
+
+print 'mean(Dnull) = %.7f' %np.mean(D_null)
+
+print 'mean(Dnull_rpos) = %.7f' %np.mean(D_null_rpos)
+
+print 'empirical_pvalue = %.7f' %emp_pv
+
+print 'empirical_pvalue_rpos = %.7f' %emp_pv_rpos
+
+print 'estimated pvalue = %.7f' %pv
+
+print 'estimated pvalue_rpos = %.7f' %pv_rpos
+           
+
+#plot the accumulated weight curve and the compariso of Dnull and max(W)  
+
+f, axarr = plt.subplots(2,2)
+axarr[0,1].hist(D_null, 50, density=1, alpha=0.5, color='r')
+axarr[0,1].hist(D_null, 50, density=1, histtype='step', lw=1.5, color='r')
+axarr[0,1].set_xticks([np.mean(D_null)])
+axarr[0,1].set_xticklabels(['%.2f'%np.mean(D_null)])
+axarr[0,1].vlines(max(W),0,15., lw=2,color='g')
+
+axarr[1,1].hist(D_null_rpos, 50, density=1, alpha=0.5, color='orange')
+axarr[1,1].hist(D_null_rpos, 50, density=1, histtype='step', lw=1.5, color='orange')
+axarr[1,1].set_xticks([np.mean(D_null_rpos), max(W)])
+axarr[1,1].set_xticklabels(['%.2f'%np.mean(D_null_rpos), '%.2f\nmax(W)'%max(W)])
+axarr[1,1].vlines(max(W),0,20., lw=2,color='g')
+
+
+  
+plt.subplot(121).plot(W, color=color_dict['others'], lw=1)
+for i in xrange(len(genera[sorter])):
+    if genera[sorter][i] in enriched_genera:
+        plt.subplot(121).scatter(i, W[i], c=color_dict[genera[sorter][i]])
+    
+        
+plt.ylabel('cumulative weight distribution (W)')
+
+#plt.savefig('Figure2.png',bbox_inches='tight',dpi=600)
+
+#files.download('Figure2.png')
+
+#####################################
+###End###
+
+
+
+###Snippet 22###
+#####################################
+#generate ROC curves
+
+def count_fp_tp(all_strains, pos_set, Nall, Npos):
+    tp = 0
+    fp=0
+    for name in all_strains:
+        if name in pos_set:
+            tp+=1
+        else:
+            fp+=1
+    return fp/float(Nall-Npos), tp/float(Npos)
+
+
+
+sorted_genera_r =sorted_genera[::-1]
+
+x,y=[],[]
+
+for i in xrange(len(sorted_genera_r)):
+    rx, ry = count_fp_tp(sorted_genera[i::], enriched_genera, Nall, Npos)
+    x.append(rx)
+    y.append(ry)
+    
+plt.plot(x,y)
 
 #####################################
 ###End###
