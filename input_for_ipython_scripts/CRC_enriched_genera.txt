@@ -5,11 +5,6 @@ Fusobacterium
 Solobacterium
 Lachnoclostridium
 Hungatella
-Anaerococcus
 Gemella
 Subdoligranulum
-Leptotrichia
-Eikenella
-Campylobacter
 Flavonifractor
-
